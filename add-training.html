@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トレーニング記録追加</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ff0000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            color: #ff0000;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff0000;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>トレーニング記録追加</h1>
+        <form id="trainingForm">
+            <input type="hidden" id="date" name="date">
+            <input type="hidden" id="exercise" name="exercise">
+            <p id="exerciseName"></p>
+            <label for="weight">重量 (kg)</label>
+            <input type="number" id="weight" name="weight" required>
+            <label for="reps">回数</label>
+            <input type="number" id="reps" name="reps" required>
+            <button type="submit">追加</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const date = urlParams.get('date');
+            const exercise = urlParams.get('exercise');
+            document.getElementById('date').value = date;
+            document.getElementById('exercise').value = exercise;
+            document.getElementById('exerciseName').textContent = `種目: ${exercise}`;
+
+            document.getElementById('trainingForm').addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(event.target);
+                const record = {
+                    date: formData.get('date'),
+                    exercise: formData.get('exercise'),
+                    weight: formData.get('weight'),
+                    reps: formData.get('reps')
+                };
+
+                let records = JSON.parse(localStorage.getItem('records')) || [];
+                records.push(record);
+                localStorage.setItem('records', JSON.stringify(records));
+
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

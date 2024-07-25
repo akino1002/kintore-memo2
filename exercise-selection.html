@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>種目選択</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ff0000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            color: #ff0000;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .exercise-button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff0000;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .exercise-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>種目選択</h1>
+        <div id="exerciseButtons"></div>
+    </div>
+
+    <script>
+        const exercises = {
+            胸: ['ベンチプレス', 'ダンベルフライ', 'インクラインベンチプレス', 'ケーブルクロスオーバー'],
+            背中: ['ラットプルダウン', 'デッドリフト', 'ベントオーバーロウ', 'シーテッドロー'],
+            肩: ['ショルダープレス', 'サイドレイズ', 'フロントレイズ', 'リアデルトレイズ'],
+            腕: ['バーベルカール', 'ダンベルカール', 'トライセプスエクステンション', 'ディップス'],
+            腹: ['クランチ', 'レッグレイズ', 'プランク', 'シットアップ'],
+            脚: ['スクワット', 'レッグプレス', 'レッグエクステンション', 'カーフレイズ']
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const date = urlParams.get('date');
+            const category = urlParams.get('category');
+            const exerciseButtons = document.getElementById('exerciseButtons');
+
+            exercises[category].forEach(exercise => {
+                const button = document.createElement('button');
+                button.className = 'exercise-button';
+                button.textContent = exercise;
+                button.onclick = () => navigateToAddTraining(date, exercise);
+                exerciseButtons.appendChild(button);
+            });
+        });
+
+        function navigateToAddTraining(date, exercise) {
+            const url = `add-training.html?date=${date}&exercise=${exercise}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

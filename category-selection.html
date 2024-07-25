@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カテゴリ選択</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ff0000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            color: #ff0000;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .category-button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff0000;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .category-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>カテゴリ選択</h1>
+        <button class="category-button" onclick="navigateToExerciseSelection('胸')">胸</button>
+        <button class="category-button" onclick="navigateToExerciseSelection('背中')">背中</button>
+        <button class="category-button" onclick="navigateToExerciseSelection('肩')">肩</button>
+        <button class="category-button" onclick="navigateToExerciseSelection('腕')">腕</button>
+        <button class="category-button" onclick="navigateToExerciseSelection('腹')">腹</button>
+        <button class="category-button" onclick="navigateToExerciseSelection('脚')">脚</button>
+    </div>
+
+    <script>
+        function navigateToExerciseSelection(category) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const date = urlParams.get('date');
+            const url = `exercise-selection.html?date=${date}&category=${category}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
